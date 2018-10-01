@@ -1,0 +1,13 @@
+1. windows下执行git push时，提示：SSL certificate problem: unable to get local issuer certificate
+方法：
+set GIT_SSL_NO_VERIFY=true git clone
+git config --global http.sslVerify false
+再次push时，会提示输入github上的 username: yulohan
+密码:  输入正确即可。
+
+我的github txt库：
+https://github.com/yulohan/txt
+https://github.com/yulohan/txt.git
+
+2. git https下面免密码操作：
+执行: git config --global credential.helper store
