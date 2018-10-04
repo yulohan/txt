@@ -11,3 +11,5 @@ https://github.com/yulohan/txt.git
 
 2. git https下面免密码操作：
 执行: git config --global credential.helper store
+
+3.
