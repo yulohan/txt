@@ -11,3 +11,7 @@ https://github.com/yulohan/txt.git
 
 2. git https下面免密码操作：
 执行: git config --global credential.helper store
+
+3.百度网盘
+yulohanyulohan@163.com(成长的烦恼)
+18019102427

@@ -1,0 +1,99 @@
+1. 字节流：
+输入流 InputStream,字节输入流
+输出流 OutputStream,字节输出流
+
+文件输入流：FileInputStream, 是InputStream子类，从文件读取。
+文件输出流：FileOutputStream，是OutputStream子类，向文件写入。
+File f = new File("d:/lol.txt");
+FileInputStream fis = new FileInputStream(f);
+FileOutputStream fos = new FileOutputStream(f);
+fis.close();    --- 关闭流有许多别的方式，但必须关闭
+
+所有的流，无论是输入流还是输出流，使用完毕之后，都应该关闭。 如果不关闭，会产生对资源占用的浪费。
+
+2. 字符流
+Reader, 字符输入流 
+Writer, 字符输出流 
+FileReader 是Reader子类,用于文件读取。
+FileWriter 是Writer的子类，用于文件写入。
+File f = new File("d:/lol.txt");
+FileReader fr = new FileReader(f);
+FileWriter fr = new FileWriter(f);
+fr.close();     --- 关闭流有许多别的方式，但必须关闭
+
+---------------------------中文编码-------------------------------------
+
+ISO-8859-1 ASCII 数字和西欧字母
+GBK GB2312 BIG5 中文
+UNICODE (统一码，万国码)
+
+ISO-8859-1 包含 ASCII
+GB2312 是简体中文，BIG5是繁体中文，GBK同时包含简体和繁体以及日文。
+UNICODE 包括了所有的文字，无论中文，英文，藏文，法文，世界所有的文字都包含其中，UTF-8，UTF-16和UTF-32都是UNICODE的减肥版本。
+写在.java源代码中的汉字，在执行之后，都会变成JVM中的字符。而这些中文字符采用的编码方式，都是使用UNICODE。
+
+用 FileInputStream 字节流读取中文，读出来的是数字（也就是字符的编码）
+FileReader 字符流读取中文，读出来的是字符，所以一定是已经把字节根据某种编码识别成了字符了，GBK编码，不能手动设置编码方式。
+为了使用其他的编码方式，只能使用 InputStreamReader 来代替。
+
+---------------------------中文编码-------------------------------------
+
+3.  缓存流
+BufferedReader, 缓存字符输入流, 可以一次读取一行数据.
+File f = new File("d:/lol.txt");
+// 创建文件字符流        
+FileReader fr = new FileReader(f);
+// 缓存流必须建立在一个存在的流的基础上
+BufferedReader br = new BufferedReader(fr);
+String line = br.readLine();  ---  一次读一行
+
+PrintWriter 缓存字符输出流， 可以一次写出一行数据
+File f = new File("d:/lol2.txt");
+// 创建文件字符流
+FileWriter fw = new FileWriter(f);
+// 缓存流必须建立在一个存在的流的基础上              
+PrintWriter pw = new PrintWriter(fw); 
+//强制把缓存中的数据写入硬盘，无论缓存是否已满
+pw.flush();
+
+4. 数据流
+DataInputStream 数据输入流 
+DataOutputStream 数据输出流
+使用数据流的writeUTF()和readUTF() 可以进行数据的格式化顺序读写
+
+File f =new File("d:/lol.txt");
+FileInputStream fis  = new FileInputStream(f);
+DataInputStream dis =new DataInputStream(fis);
+
+FileOutputStream fos  = new FileOutputStream(f);
+DataOutputStream dos =new DataOutputStream(fos);
+				
+5. 对象流
+序列化
+Hero h = new Hero();
+File f =new File("d:/garen.lol");
+//创建对象输出流
+FileOutputStream fos = new FileOutputStream(f);
+ObjectOutputStream oos =new ObjectOutputStream(fos);
+//创建对象输入流              
+FileInputStream fis = new FileInputStream(f);
+ObjectInputStream ois =new ObjectInputStream(fis);
+oos.writeObject(h);
+Hero h2 = (Hero) ois.readObject();
+
+
+                                                                  ----------------数据流 (DataInputStream, DataOutputStream)
+                                                                  |
+			            -----字节流（InputStream，OutputStream）--|
+                        |                                         |
+						|                                         ----------------对象流 (ObjectInputStream, ObjectOutputStream)
+流----------------------|
+                        |                          
+                        |                          
+			            -----字符流（Reader，Writer）-------------缓存流 (BufferedReader, PrintWriter)
+                                                
+						                           						
+												   
+
+
+				
